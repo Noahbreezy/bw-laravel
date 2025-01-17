@@ -20,7 +20,7 @@ class PostsTableSeeder extends Seeder
             'content' => 'This is the content of the first post.',
             'user_id' => $user->id,
             'publishDate' => now(),
-            'cover' => 'covers/default.jpg', // Use a placeholder image path
+            'cover' => 'covers/default.png', // Use a placeholder image path
         ]);
 
         // Add more posts as needed...

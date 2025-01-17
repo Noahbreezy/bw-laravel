@@ -64,14 +64,26 @@ class PostController extends Controller
             return redirect()->route('dashboard')->with('error', 'Unauthorized action.');
         }
 
+        // Log the incoming request data
+        \Log::info('Post update request data:', $request->all());
+
         // Handle file upload
         if ($request->hasFile('cover')) {
+            // Delete the old cover image if it exists
+            if ($post->cover) {
+                \Storage::disk('public')->delete($post->cover);
+            }
+
+            // Store the new cover image
             $coverPath = $request->file('cover')->store('covers', 'public');
             $post->cover = $coverPath;
         }
 
         // Update the post using the validated data
         $post->update($request->validated());
+
+        // Log the post data after saving
+        \Log::info('Post data after saving:', $post->toArray());
 
         // Redirect back with a success message
         return redirect()->route('dashboard')->with('success', 'Post updated successfully!');
