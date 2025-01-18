@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\FaqController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -36,6 +37,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/posts/{post}', [PostController::class, 'destroy'])
         ->middleware('can:delete-posts,post')
         ->name('posts.destroy');
+
+    // FAQ routes
+    Route::get('/faqs', [FaqController::class, 'index'])->name('faqs.index'); // Public FAQ page
+
+    // Admin-only FAQ routes
+    Route::middleware('admin')->group(function () {
+        Route::post('/faqs', [FaqController::class, 'store'])->name('faqs.store'); // Add FAQ
+        Route::put('/faqs/{faq}', [FaqController::class, 'update'])->name('faqs.update'); // Update FAQ
+        Route::delete('/faqs/{faq}', [FaqController::class, 'destroy'])->name('faqs.destroy'); // Delete FAQ
+    });
 });
 
 // Include authentication routes

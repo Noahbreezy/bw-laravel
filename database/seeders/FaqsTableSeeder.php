@@ -12,16 +12,28 @@ class FaqsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        Faq::create([
-            'question' => 'How do I see my stats?',
-            'answer' => 'Search for a userID in the search bar.',
-        ]);
+        $faqs = [
+            [
+                'question' => 'How do I see my stats?',
+                'answer' => 'Search for a username in the search bar.',
+            ],
+            [
+                'question' => 'Will other people be able to see my stats?',
+                'answer' => 'Yes, all stats are public.',
+            ],
+            [
+                'question' => 'Can I delete my account?',
+                'answer' => 'Currently, account deletion is supported.',
+            ],
+            [
+                'question' => 'How can I reset my password?',
+                'answer' => 'Click on "Forgot Password" on the login page and follow the instructions.',
+            ],
+            // Add more FAQs here as needed
+        ];
 
-        Faq::create([
-            'question' => 'Will other people be able to see my stats?',
-            'answer' => 'Yes, all stats are public.',
-        ]);
-
-        // Add more FAQs as needed...
+        foreach ($faqs as $faq) {
+            Faq::create($faq);
+        }
     }
 }

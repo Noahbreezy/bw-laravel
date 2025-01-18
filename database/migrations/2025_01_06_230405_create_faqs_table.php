@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('faqs', function (Blueprint $table) {
             $table->id();
-            $table->string('question', 100);
-            $table->string('answer', 1000);
-            $table->timestamps();
+            $table->string('question', 255); // Increased the question length to allow more flexibility.
+            $table->text('answer'); // Changed answer to 'text' to allow longer content.
+            $table->timestamps(); // Automatically includes created_at and updated_at columns.
         });
     }
 
